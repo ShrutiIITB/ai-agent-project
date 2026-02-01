@@ -22,16 +22,17 @@ pipeline{
         stage('SonarQube Analysis'){
             steps{
                 withCredentials([string(credentialsId: 'sonar-qube-token', variable: 'SONAR_TOKEN')]){
+                    
+                    // name of the scanner in system 
                 
-                    withCredentials([string(credentialsId: 'sonar-qube', variable: 'SONAR_TOKEN')]) {
-                        sh """
-                        ${SONAR_SCANNER_HOME}/bin/sonar-scanner \
-                        -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
-                        -Dsonar.sources=. \
-                        -Dsonar.host.url=http://sonarqube-dind:9000 \
-                        -Dsonar.login=${SONAR_TOKEN}
-                        """
-                    }
+                    sh """
+                    ${SONAR_SCANNER_HOME}/bin/sonar-scanner \
+                    -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
+                    -Dsonar.sources=. \
+                    -Dsonar.host.url=http://sonarqube-dind:9000 \
+                    -Dsonar.login=${SONAR_TOKEN}
+                    """
+                    
             }
         }
     }
