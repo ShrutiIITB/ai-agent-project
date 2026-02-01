@@ -4,6 +4,7 @@ pipeline{
         SONAR_PROJECT_KEY = 'ai-agent-llmops'
         SONAR_SCANNER_HOME = tool 'sonar-qube-scanner'
         DOCKERHUB_CREDENTIALS = credentials('docker-hub-registry')
+        DOCKERHUB_HOME = tool 'docker-hub'
         }
 
 
@@ -37,7 +38,7 @@ pipeline{
 
         stage('Build') {
             steps {
-                sh 'docker build -t technologia111/my-ai-agent:latest .'
+                sh '${DOCKERHUB_HOME}/bin/docker build -t technologia111/my-ai-agent:latest .'
                 }
         }
         stage('Login') {
