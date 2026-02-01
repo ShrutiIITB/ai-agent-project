@@ -8,4 +8,4 @@ RUN apt-get update -y && \
     usermod -aG docker jenkins && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-USER jenkins
+USER jenkins    
