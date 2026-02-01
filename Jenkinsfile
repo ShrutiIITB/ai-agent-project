@@ -3,6 +3,8 @@ pipeline{
     environment {
         SONAR_PROJECT_KEY = 'ai-agent-llmops'
         SONAR_SCANNER_HOME = tool 'sonar-qube-scanner'
+        DOCKERHUB_CREDENTIALS = credentials('docker-hub-registry')
+        
         // AWS_SESSION = "us-east-1"
         // ECR_REPO = "ai-agent-repo"
         // IMAGE_TAG = "latest"
@@ -33,8 +35,27 @@ pipeline{
                     -Dsonar.login=${SONAR_TOKEN}
                     """
                     
+                }
             }
         }
+        stages {
+        stage('Build') {
+            steps {
+                sh 'docker build -t technologia111/my-ai-agent:latest .'
+                }
+        }
+        stage('Login') {
+            steps {
+                    sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                }
+        }
+        stage('Push') {
+            steps {
+                sh 'docker push technologia111/my-ai-agent:latest'
+            }
+        }
+        }
+        
     }
 }
-}
+        
