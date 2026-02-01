@@ -34,7 +34,7 @@ pipeline{
                 }
             }
         }
-        stages {
+
         stage('Build') {
             steps {
                 sh 'docker build -t technologia111/my-ai-agent:latest .'
@@ -50,8 +50,9 @@ pipeline{
                 sh 'docker push technologia111/my-ai-agent:latest'
             }
         }
-        }
-        
+    
     }
+        
+    
 }
         
