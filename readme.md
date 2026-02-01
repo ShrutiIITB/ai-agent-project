@@ -9,8 +9,10 @@ This project implements a multi-agent AI interface with web search, where user c
 - Created CI/CD pipeline using Git, Jenkins, SonarQube
 
 ### Project Map
+<p align="left">
+  <img src="img\architecture.jpeg" width=400/>
+</p>
 
-![alt text](<img\Job Scapper - ai-agent.jpeg>)
 
 
 ## Installation
