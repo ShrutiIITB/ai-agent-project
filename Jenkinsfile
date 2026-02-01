@@ -4,11 +4,7 @@ pipeline{
         SONAR_PROJECT_KEY = 'ai-agent-llmops'
         SONAR_SCANNER_HOME = tool 'sonar-qube-scanner'
         DOCKERHUB_CREDENTIALS = credentials('docker-hub-registry')
-        
-        // AWS_SESSION = "us-east-1"
-        // ECR_REPO = "ai-agent-repo"
-        // IMAGE_TAG = "latest"
-    }
+        }
 
 
     stages{
