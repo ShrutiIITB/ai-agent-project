@@ -23,7 +23,7 @@ pipeline{
             steps{
                 withCredentials([string(credentialsId: 'sonar-qube-token', variable: 'SONAR_TOKEN')]){
                 
-                    withCredentials('sonar-qube') {
+                    withCredentials([string(credentialsId: 'sonar-qube', variable: 'SONAR_TOKEN')]) {
                         sh """
                         ${SONAR_SCANNER_HOME}/bin/sonar-scanner \
                         -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
