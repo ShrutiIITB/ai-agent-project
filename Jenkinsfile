@@ -1,5 +1,13 @@
 pipeline{
     agent any 
+    environment {
+        SONAR_PROJECT_KEY = 'ai-agent-llmops'
+        SONAR_SCANNER_HOME = tool 'sonar-qube-scanner'
+        // AWS_SESSION = "us-east-1"
+        // ECR_REPO = "ai-agent-repo"
+        // IMAGE_TAG = "latest"
+    }
+
 
     stages{
         stage('Cloning Github Repo to Jenkins'){
@@ -10,5 +18,22 @@ pipeline{
                 }
             }
         }
+
+        stage('SonarQube Analysis'){
+            steps{
+                withCredentials([string(credentialsId: 'sonar-qube-token', variable: 'SONAR_TOKEN')]){
+                
+                    withCredentials('sonar-qube') {
+                        sh """
+                        ${SONAR_SCANNER_HOME}/bin/sonar-scanner \
+                        -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
+                        -Dsonar.sources=. \
+                        -Dsonar.host.url=http://sonarqube-dind:9000 \
+                        -Dsonar.login=${SONAR_TOKEN}
+                        """
+                    }
+            }
+        }
     }
+}
 }
